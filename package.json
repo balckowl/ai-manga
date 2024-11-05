@@ -15,12 +15,17 @@
 	},
 	"dependencies": {
 		"@auth/drizzle-adapter": "^1.7.3",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.36.0",
+		"lucide-react": "^0.454.0",
 		"next": "14.2.16",
 		"next-auth": "beta",
 		"postgres": "^3.4.5",
 		"react": "^18",
-		"react-dom": "^18"
+		"react-dom": "^18",
+		"tailwind-merge": "^2.5.4",
+		"tailwindcss-animate": "^1.0.7"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
