@@ -1,13 +1,14 @@
+import Image from "next/image";
+import { Button } from "./ui/button";
+
 export default function Header() {
 	return (
-		<header className="h-7 bg-stone-500 text-white">
-			<div className="container mx-auto flex h-full items-center justify-between gap-4">
-				<h1>manga</h1>
-				<ul className="flex gap-3">
-					<li>about</li>
-					<li>gallery</li>
-					<li>community</li>
-				</ul>
+		<header className="h-[100px]">
+			<div className="container mx-auto flex h-full items-center justify-between">
+				<Image src="/logo.png" alt="" width={209} height={33} />
+				<Button variant="ghost" className="text-[20px]">
+					ログイン
+				</Button>
 			</div>
 		</header>
 	);
