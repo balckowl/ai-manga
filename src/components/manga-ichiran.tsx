@@ -6,7 +6,7 @@ type Props = {
 	title: string;
 };
 
-export default function NinkiIchiran({ title }: Props) {
+export default function MangaIchiran({ title }: Props) {
 	return (
 		<div className="container mx-auto pt-[100px]">
 			<div className="relative mb-[45px] flex justify-center">
