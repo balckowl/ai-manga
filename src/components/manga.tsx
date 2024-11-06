@@ -23,7 +23,7 @@ type Coma = {
 
 export default function Manga({ title, comaList }: Props) {
 	return (
-		<div className="">
+		<div>
 			<h2 className="mb-[13px] bg-black py-[6px] text-center font-bold text-white">{title}</h2>
 			<Swiper
 				style={
