@@ -18,11 +18,9 @@ export default function Completed() {
 					</h2>
 				</div>
 				<div className="flex justify-center gap-5">
-					<Button className="h-[50px] w-[250px]">
-						<p className="font-bold text-xl">もっとつくる</p>
-					</Button>
-					<Button className="h-[50px] w-[250px] border-4 border-black bg-white hover:bg-gray-200">
-						<p className="font-bold text-black text-xl">みんなの作品を見る</p>
+					<Button className="h-[50px] w-[250px] font-bold text-xl">もっとつくる</Button>
+					<Button className="h-[50px] w-[250px] border-4 border-black bg-white font-bold text-black text-xl hover:bg-gray-200">
+						みんなの作品を見る
 					</Button>
 				</div>
 			</div>
