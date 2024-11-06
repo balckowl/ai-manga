@@ -44,7 +44,7 @@ export default function Manga({ title, comaList }: Props) {
 				modules={[Navigation, Autoplay, Pagination]}
 				spaceBetween={50}
 				slidesPerView={1}
-				className="relative border-[3px] border-black"
+				className="relative mb-[3px] border-[3px] border-black"
 			>
 				{comaList.map((coma) => (
 					<SwiperSlide key={coma.imageUrl} className="h-[400px]">
@@ -64,6 +64,7 @@ export default function Manga({ title, comaList }: Props) {
 					</div>
 				</div>
 			</Swiper>
+			<p className="text-3 text-[#808080]">宮沢賢治先生・2022/11/07</p>
 		</div>
 	);
 }
