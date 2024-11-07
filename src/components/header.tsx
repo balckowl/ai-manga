@@ -1,5 +1,6 @@
 import { auth, signIn, signOut } from "@/auth";
 import Image from "next/image";
+import Link from "next/link";
 import { PiSignOut } from "react-icons/pi";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -11,7 +12,9 @@ export default async function Header() {
 	return (
 		<header className="h-[100px]">
 			<div className="container mx-auto flex h-full items-center justify-between">
-				<Image src="/logo.png" alt="" width={209} height={33} />
+				<Link href="/">
+					<Image src="/logo.png" alt="" width={209} height={33} />
+				</Link>
 				{!session && (
 					<form
 						action={async () => {
