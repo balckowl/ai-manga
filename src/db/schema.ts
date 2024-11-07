@@ -1,7 +1,7 @@
 import {
 	boolean,
 	integer,
-	jsonb,
+	json,
 	pgTable,
 	primaryKey,
 	serial,
@@ -93,7 +93,7 @@ export const comics = pgTable("comic", {
 		.notNull()
 		.references(() => users.id, { onDelete: "cascade" }),
 	title: text("title").notNull(),
-	contents: jsonb().$type<{ text: string; img: string }[]>().notNull(),
+	contents: json().$type<{ text: string; img: string }[]>().notNull(),
 	publishedAt: timestamp("publishedAt", { mode: "date" }).notNull(),
 });
 
@@ -106,3 +106,11 @@ export const likes = pgTable("like", {
 		.notNull()
 		.references(() => comics.id, { onDelete: "cascade" }),
 });
+
+export type SelectUser = typeof users.$inferSelect;
+
+export type InsertComic = typeof comics.$inferInsert;
+export type SelectComic = typeof comics.$inferSelect;
+
+export type InsertLike = typeof likes.$inferInsert;
+export type SelectLike = typeof likes.$inferSelect;
