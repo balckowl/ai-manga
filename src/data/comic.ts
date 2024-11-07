@@ -5,7 +5,7 @@ import { desc } from "drizzle-orm";
 //漫画の全取得
 export async function getAllComics() {
 	try {
-		const allComics = await db.select().from(comics);
+		const allComics = await db.select().from(comics).orderBy(desc(comics.publishedAt));
 		return allComics;
 	} catch (error) {
 		console.error("Error fetching comics:", error);
