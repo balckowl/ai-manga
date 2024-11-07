@@ -44,7 +44,7 @@ export default async function Header() {
 								</Avatar>
 							</PopoverTrigger>
 							<PopoverContent className="w-[250px] p-0" align="end">
-								<ul className="space-y-5 p-8">
+								<ul className="space-y-7 p-8">
 									<li className="flex items-center gap-3">
 										<Avatar>
 											<AvatarImage
@@ -62,14 +62,13 @@ export default async function Header() {
 												await signOut();
 											}}
 										>
-											<Button
-												variant="ghost"
+											<button
 												className="flex w-full items-center justify-start gap-3"
-												type="button"
+												type="submit"
 											>
-												<PiSignOut />
+												<PiSignOut size={25} />
 												ログアウト
-											</Button>
+											</button>
 										</form>
 									</li>
 								</ul>
