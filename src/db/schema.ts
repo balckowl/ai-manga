@@ -1,4 +1,13 @@
-import { boolean, integer, pgTable, primaryKey, text, timestamp } from "drizzle-orm/pg-core";
+import {
+	boolean,
+	integer,
+	json,
+	pgTable,
+	primaryKey,
+	serial,
+	text,
+	timestamp,
+} from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
 export const users = pgTable("user", {
@@ -77,3 +86,31 @@ export const authenticators = pgTable(
 		}),
 	}),
 );
+
+export const comics = pgTable("comic", {
+	id: serial("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	title: text("title").notNull(),
+	contents: json().$type<{ text: string; img: string }[]>().notNull(),
+	publishedAt: timestamp("publishedAt", { mode: "date" }).notNull(),
+});
+
+export const likes = pgTable("like", {
+	id: serial("id").primaryKey(),
+	userId: text("userId")
+		.notNull()
+		.references(() => users.id, { onDelete: "cascade" }),
+	comicId: integer("comicId")
+		.notNull()
+		.references(() => comics.id, { onDelete: "cascade" }),
+});
+
+export type SelectUser = typeof users.$inferSelect;
+
+export type InsertComic = typeof comics.$inferInsert;
+export type SelectComic = typeof comics.$inferSelect;
+
+export type InsertLike = typeof likes.$inferInsert;
+export type SelectLike = typeof likes.$inferSelect;
