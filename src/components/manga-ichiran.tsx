@@ -1,6 +1,6 @@
 import { comaList } from "@/lib/dummy-data";
 import Image from "next/image";
-import Manga from "./manga";
+import TopManga from "./top-manga";
 
 type Props = {
 	title: string;
@@ -18,7 +18,7 @@ export default function MangaIchiran({ title }: Props) {
 			<div className="grid grid-cols-3 gap-9">
 				{[...new Array(6)].map((_, i) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<Manga title="こんにちは" comaList={comaList} key={i} />
+					<TopManga comaList={comaList} key={i} />
 				))}
 			</div>
 		</div>

@@ -64,7 +64,6 @@ export default function Manga({ title, comaList }: Props) {
 					</div>
 				</div>
 			</Swiper>
-			<p className="text-3 text-[#808080]">宮沢賢治先生・2022/11/07</p>
 		</div>
 	);
 }
