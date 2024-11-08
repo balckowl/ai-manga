@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -8,26 +9,26 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import type { SelectComic, SelectUser } from "@/db/schema";
+import { format } from "date-fns";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Manga from "./manga";
 
-import { Button } from "@/components/ui/button";
-
-type Coma = {
-	text: string;
-	imageUrl: string;
-};
-
 type Props = {
-	comaList: Coma[];
+	myComic: ComicType;
 };
 
-export default function GalleryManga({ comaList }: Props) {
+type ComicType = { comic: SelectComic } & { user: SelectUser | null };
+
+export default function GalleryManga({ myComic }: Props) {
+	const { comic } = myComic;
+	const { title, contents, publishedAt } = comic;
+	const formatedPublishedAt = format(publishedAt, "yyyy/MM/dd");
 	return (
 		<article>
-			<Manga title="こんにちは" comaList={comaList} />
+			<Manga title={title} contents={contents} />
 			<div className="flex justify-between">
-				<time dateTime="2022-11-07">2022/11/07</time>
+				<time dateTime={formatedPublishedAt}>{formatedPublishedAt}</time>
 				<Dialog>
 					<DialogTrigger>
 						<FaRegTrashAlt className="transition-colors duration-200 hover:text-red-400" />
