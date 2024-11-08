@@ -28,8 +28,8 @@ export default function Page() {
 
 				<div className="mx-auto mb-[30px] flex w-[820px] flex-wrap gap-4">
 					{images.map((image, index) => (
-						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 						<div
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							key={index}
 							className="relative flex h-[240px] w-[400px] items-center justify-center overflow-hidden border-[3px] border-black"
 						>
