@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import type { CSSProperties } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -10,18 +9,15 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import type { SelectComic } from "@/db/schema";
+import Image from "next/image";
 
 type Props = {
 	title: string;
-	comaList: Coma[];
+	contents: SelectComic["contents"];
 };
 
-type Coma = {
-	text: string;
-	imageUrl: string;
-};
-
-export default function Manga({ title, comaList }: Props) {
+export default function Manga({ title, contents }: Props) {
 	return (
 		<div>
 			<h2 className="mb-[13px] bg-black py-[6px] text-center font-bold text-white">{title}</h2>
@@ -46,11 +42,17 @@ export default function Manga({ title, comaList }: Props) {
 				slidesPerView={1}
 				className="relative mb-[3px] border-[3px] border-black"
 			>
-				{comaList.map((coma) => (
-					<SwiperSlide key={coma.imageUrl} className="h-[400px]">
-						<Image src={coma.imageUrl} width={500} height={400} alt="w-full" />
+				{contents.map((content) => (
+					<SwiperSlide key={content.img} className="h-[400px]">
+						<Image
+							src={content.img}
+							width={500}
+							height={400}
+							className="h-[270px] object-cover"
+							alt=""
+						/>
 						<div className="absolute top-0 right-0 z-[10] flex h-[220px] w-[90px] items-center justify-center border-black border-b-[3px] border-l-[3px] bg-white p-2 [writing-mode:vertical-rl]">
-							{coma.text}
+							{content.text}
 						</div>
 					</SwiperSlide>
 				))}

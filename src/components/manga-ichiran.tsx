@@ -1,12 +1,13 @@
-import { comaList } from "@/lib/dummy-data";
+import type { SelectComic } from "@/db/schema";
 import Image from "next/image";
 import TopManga from "./top-manga";
 
 type Props = {
 	title: string;
+	comics: SelectComic[];
 };
 
-export default function MangaIchiran({ title }: Props) {
+export default function MangaIchiran({ title, comics }: Props) {
 	return (
 		<div className="container mx-auto pt-[100px]">
 			<div className="relative mb-[45px] flex justify-center">
@@ -16,9 +17,9 @@ export default function MangaIchiran({ title }: Props) {
 				</h3>
 			</div>
 			<div className="grid grid-cols-3 gap-9">
-				{[...new Array(6)].map((_, i) => (
+				{comics.map((comic, i) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<TopManga comaList={comaList} key={i} />
+					<TopManga comic={comic} key={i} />
 				))}
 			</div>
 		</div>
