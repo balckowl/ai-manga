@@ -11,7 +11,7 @@ export default async function Page() {
 		<Fragment>
 			<Hero />
 			<MangaIchiran title="いいね数上位" comicsWithAuthor={newComicsWithAuthor} />
-			<MangaIchiran title="新着一覧" comicsWithAuthor={newComicsWithAuthor} />
+			<MangaIchiran title="新着作品" comicsWithAuthor={newComicsWithAuthor} />
 			<Recommend />
 		</Fragment>
 	);
