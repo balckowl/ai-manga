@@ -5,13 +5,13 @@ import { getNewComics } from "@/data/comic";
 import { Fragment } from "react";
 
 export default async function Page() {
-	const newComics = await getNewComics();
+	const newComicsWithAuthor = await getNewComics();
 
 	return (
 		<Fragment>
 			<Hero />
-			<MangaIchiran title="いいね数上位" comics={newComics} />
-			<MangaIchiran title="新着一覧" comics={newComics} />
+			<MangaIchiran title="いいね数上位" comicsWithAuthor={newComicsWithAuthor} />
+			<MangaIchiran title="新着一覧" comicsWithAuthor={newComicsWithAuthor} />
 			<Recommend />
 		</Fragment>
 	);

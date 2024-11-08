@@ -1,13 +1,15 @@
-import type { SelectComic } from "@/db/schema";
+import type { SelectComic, SelectUser } from "@/db/schema";
 import Image from "next/image";
 import TopManga from "./top-manga";
 
 type Props = {
 	title: string;
-	comics: SelectComic[];
+	comicsWithAuthor: ComicType[];
 };
 
-export default function MangaIchiran({ title, comics }: Props) {
+type ComicType = { comic: SelectComic } & { user: SelectUser | null };
+
+export default function MangaIchiran({ title, comicsWithAuthor }: Props) {
 	return (
 		<div className="container mx-auto pt-[100px]">
 			<div className="relative mb-[45px] flex justify-center">
@@ -17,9 +19,9 @@ export default function MangaIchiran({ title, comics }: Props) {
 				</h3>
 			</div>
 			<div className="grid grid-cols-3 gap-9">
-				{comics.map((comic, i) => (
+				{comicsWithAuthor.map((comicWithAuthor, i) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<TopManga comic={comic} key={i} />
+					<TopManga comicWithAuthor={comicWithAuthor} key={i} />
 				))}
 			</div>
 		</div>
