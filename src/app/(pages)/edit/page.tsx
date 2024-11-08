@@ -151,15 +151,23 @@ export default function Page() {
                                             作品を公開するよ
                                             <br />
                                             公開した作品は編集できないから注意してね！
-                                            <MdOutlineFileUpload className="mx-auto my-[20px] text-9xl text-black md:my-[35px]" />
                                     </DialogDescription>
+                                    
+                                    <MdOutlineFileUpload className="mx-auto my-[20px] text-9xl text-black md:my-[35px]" />
 
+                                    <div className="relative rounded-md bg-gray-300 p-4 text-center">
+                                        <p>公開される情報</p>
+                                        <ul>
+                                            <li className='mt-2'>・アカウントの表示名</li>
+                                        </ul>
+                                    </div>
+                                            
                                     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                                         <Button
                                             type="submit"
                                             variant="default"
                                             onClick={customSubmit}
-                                            className="font-bold"
+                                            className="mt-5 font-bold"
                                             disabled={isSubmitting}
                                             >公開する
                                         </Button>
@@ -168,7 +176,7 @@ export default function Page() {
                                             type="button"
                                             variant="outline"
                                             onClick={() => console.log("キャンセルボタンが押されました")}
-                                            className="border-2 border-black border-solid font-bold"
+                                            className="border-2 border-black border-solid font-bold md:mt-5"
                                             >キャンセル
                                         </Button>
                                         </DialogClose>
