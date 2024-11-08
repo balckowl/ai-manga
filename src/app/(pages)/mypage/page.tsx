@@ -1,9 +1,11 @@
 import { auth } from "@/auth";
 import MangaIchiran from "@/components/manga-ichiran";
 import { Button } from "@/components/ui/button";
+import { getNewComics } from "@/data/comic";
 
 export default async function MyPage() {
 	const session = await auth();
+	const comicsWithAuthor = await getNewComics();
 
 	return (
 		<div className="pb-[100px]">
@@ -21,8 +23,8 @@ export default async function MyPage() {
 				<hr className="container mx-auto border-t-2" />
 			</div>
 
-			<MangaIchiran title="いいね数の多い作品" />
-			<MangaIchiran title="新着一覧" />
+			<MangaIchiran title="いいね数の多い作品" comicsWithAuthor={comicsWithAuthor} />
+			<MangaIchiran title="新着一覧" comicsWithAuthor={comicsWithAuthor} />
 		</div>
 	);
 }
