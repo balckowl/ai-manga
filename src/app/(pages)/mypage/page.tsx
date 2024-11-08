@@ -22,7 +22,7 @@ export default async function MyPage() {
 			</div>
 
 			<MangaIchiran title="いいね数の多い作品" />
-			<MangaIchiran title="こんばんは" />
+			<MangaIchiran title="新着一覧" />
 		</div>
 	);
 }
