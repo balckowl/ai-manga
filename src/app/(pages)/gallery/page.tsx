@@ -8,7 +8,6 @@ export default async function Page() {
 	const session = await auth();
 	if (!session) redirect("/");
 	const allMyComics = await getAllMyComics(session.user?.id as string);
-	console.log(allMyComics);
 	return (
 		<div className="container mx-auto">
 			<h2 className="relative">
