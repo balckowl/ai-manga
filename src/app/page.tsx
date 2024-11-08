@@ -8,7 +8,7 @@ export default function Page() {
 		<Fragment>
 			<Hero />
 			<MangaIchiran title="いいね数上位" />
-			<MangaIchiran title="新着一覧" />
+			<MangaIchiran title="新着作品" />
 			<Recommend />
 		</Fragment>
 	);
