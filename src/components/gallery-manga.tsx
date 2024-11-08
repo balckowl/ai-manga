@@ -24,6 +24,7 @@ export default function GalleryManga({ myComic }: Props) {
 	const { comic } = myComic;
 	const { title, contents, publishedAt } = comic;
 	const formatedPublishedAt = format(publishedAt, "yyyy/MM/dd");
+
 	return (
 		<article>
 			<Manga title={title} contents={contents} />
