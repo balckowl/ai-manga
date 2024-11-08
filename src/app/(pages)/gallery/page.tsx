@@ -1,8 +1,14 @@
+import { auth } from "@/auth";
 import GalleryManga from "@/components/gallery-manga";
-import { comaList } from "@/lib/dummy-data";
+import { getAllMyComics } from "@/data/comic";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Page() {
+export default async function Page() {
+	const session = await auth();
+	if (!session) redirect("/");
+	const allMyComics = await getAllMyComics(session.user?.id as string);
+	console.log(allMyComics);
 	return (
 		<div className="container mx-auto">
 			<h2 className="relative">
@@ -19,9 +25,9 @@ export default function Page() {
 			</h2>
 
 			<div className="mx-auto my-7 grid w-[95%] grid-cols-1 gap-9 md:grid-cols-3">
-				{[...new Array(12)].map((_, i) => (
+				{allMyComics.map((myComic, i) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<GalleryManga comaList={comaList} key={i} />
+					<GalleryManga key={i} myComic={myComic} />
 				))}
 			</div>
 		</div>
