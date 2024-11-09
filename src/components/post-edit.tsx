@@ -33,11 +33,11 @@ type MangaFormSchemaType = z.infer<typeof mangaFormSchema>;
 
 type Props = {
 	comics: SelectComic["contents"];
-	getComicsData: (comics: SelectComic["contents"]) => void;
 	onEditCompleted: () => void;
+	userId: string;
 };
 
-export default function PostEdit({ comics, getComicsData, onEditCompleted }: Props) {
+export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 	const [title, setTitle] = useState("lorem");
 	const [firstComa, setFirstComa] = useState(comics[0].text);
 	const [secondComa, setSecondComa] = useState(comics[1].text);

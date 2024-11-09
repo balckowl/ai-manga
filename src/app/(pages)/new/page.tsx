@@ -1,37 +1,10 @@
-"use client";
+import { auth } from "@/auth";
+import NewPage from "@/components/new-page";
 
-import PostCompleted from "@/components/post-completed";
-import PostEdit from "@/components/post-edit";
-import PostNew from "@/components/post-new";
-import type { SelectComic } from "@/db/schema";
-import { useState } from "react";
+export default async function Page() {
+	const session = await auth();
 
-export default function Page() {
-	const [stage, setStage] = useState("new");
-	const [comics, setComics] = useState<SelectComic["contents"]>([
-		{ img: "", text: "" },
-		{ img: "", text: "" },
-		{ img: "", text: "" },
-		{ img: "", text: "" },
-	]);
+	if (!session) return <p>認証して</p>;
 
-	const handleImageUploadSuccess = () => setStage("edit");
-	const handleEditCompleted = () => setStage("completed");
-	const getComicsData = (comics: SelectComic["contents"]) => setComics(comics);
-
-	return (
-		<>
-			{stage === "new" && (
-				<PostNew onImageUploadSuccess={handleImageUploadSuccess} getComicsData={getComicsData} />
-			)}
-			{stage === "edit" && (
-				<PostEdit
-					onEditCompleted={handleEditCompleted}
-					comics={comics}
-					getComicsData={getComicsData}
-				/>
-			)}
-			{stage === "completed" && <PostCompleted />}
-		</>
-	);
+	return <NewPage userId={session.user?.id as string} />;
 }
