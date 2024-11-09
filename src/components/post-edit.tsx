@@ -58,9 +58,26 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 		mode: "onChange",
 	});
 
-	const onSubmit: SubmitHandler<MangaFormSchemaType> = (data) => {
+	const onSubmit: SubmitHandler<MangaFormSchemaType> = async (data) => {
 		console.log("フォームの内容が送信されました：", data);
 		setIsOpen(false);
+
+		const res = await fetch("/api/post", {
+			method: "POST",
+			body: JSON.stringify({
+				userId,
+				title,
+				contents: [
+					{ text: data.firstComa, img: comics[0].img },
+					{ text: data.secondComa, img: comics[1].img },
+					{ text: data.thirdComa, img: comics[2].img },
+					{ text: data.fourthComa, img: comics[3].img },
+				],
+			}),
+		});
+
+		const fetchData = await res.json();
+		console.log(fetchData);
 		onEditCompleted();
 	};
 
