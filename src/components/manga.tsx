@@ -31,7 +31,6 @@ export default function Manga({ title, contents }: Props) {
 					clickable: true,
 				}}
 				centeredSlides={true}
-				loop={true}
 				navigation={{
 					nextEl: ".swiper_button_next",
 					prevEl: ".swiper_button_prev",
