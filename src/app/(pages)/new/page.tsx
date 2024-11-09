@@ -1,19 +1,54 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/lib/supabase";
 import Image from "next/image";
 import { type ChangeEvent, useState } from "react";
 
 export default function Page() {
 	const [images, setImages] = useState<(string | null)[]>([null, null, null, null]);
+	const [files, setFiles] = useState<(File | null)[]>([null, null, null, null]);
 
 	const handleImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
 		if (file) {
 			const newImages = [...images];
+			const newFiles = [...files];
 			newImages[index] = URL.createObjectURL(file);
+			newFiles[index] = file;
 			setImages(newImages);
+			setFiles(newFiles);
 		}
+		console.log(images);
+	};
+
+	const submitImages = async () => {
+		const urls: string[] = [];
+
+		for (let i = 0; i < files.length; i++) {
+			const file = files[i];
+			if (file) {
+				const fileName = `image-${Date.now()}-${i}.jpg`;
+				const { data, error } = await supabase.storage
+					.from("comic-images")
+					.upload(`public/${fileName}`, file);
+
+				if (error) {
+					console.error("Error uploading image:", error.message);
+					continue;
+				}
+
+				const { data: publicUrlData } = supabase.storage
+					.from("comic-images")
+					.getPublicUrl(data.path);
+				const url = publicUrlData?.publicUrl;
+				if (url) {
+					urls.push(url);
+				}
+			}
+		}
+
+		console.log("Uploaded image URLs:", urls);
 	};
 
 	return (
@@ -54,7 +89,9 @@ export default function Page() {
 							<input
 								type="file"
 								accept="image/*"
-								onChange={(e) => handleImageChange(index, e)}
+								onChange={(e) => {
+									handleImageChange(index, e);
+								}}
 								className="absolute inset-0 cursor-pointer opacity-0"
 							/>
 							<p className="absolute right-5 bottom-3 font-bold">{index + 1}</p>
@@ -63,7 +100,9 @@ export default function Page() {
 				</div>
 
 				<div className="flex justify-center gap-4">
-					<Button className="w-[200px] font-bold">生成する</Button>
+					<Button className="w-[200px] font-bold" onClick={submitImages}>
+						生成する
+					</Button>
 					<Button className="w-[200px] font-bold" variant="secondary">
 						キャンセル
 					</Button>
