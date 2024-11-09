@@ -7,7 +7,7 @@ export default function Hero() {
 		<div className="mb-[100px] flex h-[calc(100vh-200px)] items-center justify-center">
 			<div className="relative">
 				<Link href="/">
-					<Image src="/hukidasi.png" width={1250} height={650} alt="" />
+					<Image src="/hukidasi.png" width={1200} height={650} alt="" />
 				</Link>
 				<div className="absolute top-[50%] left-[50%] w-full translate-x-[-50%] translate-y-[-50%] text-center">
 					<Image src="/title.png" width={600} height={650} alt="" className="mx-auto mb-[45px]" />
