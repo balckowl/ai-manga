@@ -8,20 +8,38 @@ const vision = new ChatGoogleGenerativeAI({
 	maxOutputTokens: 2048,
 });
 
+async function fetchImageAsBase64(url: string): Promise<string> {
+	const response = await fetch(url);
+	const buffer = await response.arrayBuffer();
+	return Buffer.from(buffer).toString("base64");
+}
+
 export async function POST(request: Request) {
 	try {
-		// フロントエンドから渡される画像URLの配列をリクエストのbodyから取得
 		const { images } = await request.json();
 
 		if (!Array.isArray(images) || images.length === 0) {
 			return NextResponse.json({ error: "画像URLの配列が空です。" }, { status: 400 });
 		}
 
-		const prompt =
-			"次の4枚の画像について、それぞれの説明を返してください。説明は配列形式で返してください。配列のみを返してください。";
-		const combinedPrompt = `${prompt}\n\n${images.join("\n")}`;
+		// 各画像URLをBase64に変換
+		const base64Images = await Promise.all(images.map(fetchImageAsBase64));
 
-		const inputMessage = [new HumanMessage(combinedPrompt)];
+		// Gemini APIに送信するメッセージを構築
+		const inputMessage = [
+			new HumanMessage({
+				content: [
+					{
+						type: "text",
+						text: "次の4枚の画像について、それぞれの説明を返してください。説明は配列形式で返してください。配列のみを返してください。",
+					},
+					...base64Images.map((image) => ({
+						type: "image_url",
+						image_url: `data:image/png;base64,${image}`,
+					})),
+				],
+			}),
+		];
 
 		const response = await vision.invoke(inputMessage);
 
