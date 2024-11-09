@@ -31,13 +31,17 @@ const mangaFormSchema = z.object({
 
 type MangaFormSchemaType = z.infer<typeof mangaFormSchema>;
 
-export default function Page() {
+type Props = {
+    onEditCompleted: () => void;
+}
 
-    const [title, setTitle] = useState('ポラーノの広場');
-    const [firstComa, setFirstComa] = useState('あのイーハトーヴォのすきとおった風、夏でも底に冷たさ');
-    const [secondComa, setSecondComa] = useState('あのイーハトーヴォのすきとおった風、夏でも底に冷たさ');
-    const [thirdComa, setThirdComa] = useState('あのイーハトーヴォのすきとおった風、夏でも底に冷たさ');
-    const [fourthComa, setFourthComa] = useState('あのイーハトーヴォのすきとおった風、夏でも底に冷たさ');
+export default function PostEdit({ onEditCompleted }: Props) {
+
+    const [title, setTitle] = useState('lorem');
+    const [firstComa, setFirstComa] = useState('lorem');
+    const [secondComa, setSecondComa] = useState('lorem');
+    const [thirdComa, setThirdComa] = useState('lorem');
+    const [fourthComa, setFourthComa] = useState('lorem');
 
     const [isDialogOpen, setIsOpen] = useState(false);
 
@@ -56,6 +60,7 @@ export default function Page() {
     const onSubmit: SubmitHandler<MangaFormSchemaType> = (data) => {
         console.log('フォームの内容が送信されました：', data);
         setIsOpen(false);
+        onEditCompleted();
     }
 
     return (
@@ -175,11 +180,11 @@ export default function Page() {
                             </div>
 
                             <div className="mx-auto mt-4 max-w-[500px]">
-                                <Manga title={title} comaList={[
-                                    { text: firstComa, imageUrl: "https://picsum.photos/id/222/300/200" },
-                                    { text: secondComa, imageUrl: "https://picsum.photos/id/122/300/200" },
-                                    { text: thirdComa, imageUrl: "https://picsum.photos/id/124/300/200" },
-                                    { text: fourthComa, imageUrl: "https://picsum.photos/id/152/300/200" },
+                                <Manga title={title} contents={[
+                                    { text: firstComa, img: "https://picsum.photos/id/222/300/200" },
+                                    { text: secondComa, img: "https://picsum.photos/id/122/300/200" },
+                                    { text: thirdComa, img: "https://picsum.photos/id/124/300/200" },
+                                    { text: fourthComa, img: "https://picsum.photos/id/152/300/200" },
                                 ]} />
                             </div>
                         </div>

@@ -1,7 +1,9 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export default function Completed() {
+export default function PostCompleted() {
 	return (
 		<div className="flex h-[calc(100vh-200px)] items-center justify-center">
 			<div className="relative">
