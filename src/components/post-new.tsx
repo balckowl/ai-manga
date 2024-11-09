@@ -81,13 +81,6 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 			}
 		}
 
-		//ダミーデータ
-		// const comics = [
-		// 	{ img: urls[0], text: "こんばんは" },
-		// 	{ img: urls[1], text: "こんばんは" },
-		// 	{ img: urls[2], text: "こんばんは" },
-		// 	{ img: urls[3], text: "こんばんは" },
-		// ];
 		const res = await fetch("/api/gemini", {
 			method: "POST",
 			body: JSON.stringify({ images: urls }),
@@ -105,6 +98,11 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 
 		await submitImages();
 		onImageUploadSuccess();
+	};
+
+	const handleReset = () => {
+		setFiles([null, null, null, null]);
+		setImageUrls([null, null, null, null]);
 	};
 
 	return (
@@ -173,7 +171,12 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 							>
 								生成する
 							</Button>
-							<Button className="w-[200px] font-bold" variant="secondary">
+							<Button
+								type="button"
+								className="w-[200px] font-bold"
+								variant="secondary"
+								onClick={handleReset}
+							>
 								キャンセル
 							</Button>
 						</div>
