@@ -94,7 +94,7 @@ export const comics = pgTable("comic", {
 		.references(() => users.id, { onDelete: "cascade" }),
 	title: text("title").notNull(),
 	contents: json().$type<{ text: string; img: string }[]>().notNull(),
-	publishedAt: timestamp("publishedAt", { mode: "date" }).notNull(),
+	publishedAt: timestamp("publishedAt", { mode: "date" }).defaultNow().notNull(),
 });
 
 export const likes = pgTable("like", {
