@@ -1,0 +1,11 @@
+version: '3'
+services:
+  next:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+    tty: true
+    container_name: ai-manga
+    command:  /bin/sh
+    ports:
+      - "3000:3000"
