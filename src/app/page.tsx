@@ -1,10 +1,14 @@
+import { auth } from "@/auth";
 import Hero from "@/components/hero";
 import MangaIchiran from "@/components/manga-ichiran";
 import Recommend from "@/components/recommend";
 import { getNewComics } from "@/data/comic";
+import { redirect } from "next/navigation";
 import { Fragment } from "react";
 
 export default async function Page() {
+	const session = await auth();
+	if (session) redirect("/mypage");
 	const newComicsWithAuthor = await getNewComics();
 
 	return (

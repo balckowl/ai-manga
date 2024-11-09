@@ -17,9 +17,7 @@ export default function Hero() {
 						AIの力を借りて物語を紡ぎ出します。ここでは、選んだ画像が言葉に変わり、一つの物語が生まれます。
 						画像を選ぶことから始まる創作の旅で、あなただけのオリジナル漫画を作りましょう。
 					</p>
-					<StartButton>
-						<Link href="/">はじめる</Link>
-					</StartButton>
+					<StartButton>はじめる</StartButton>
 				</div>
 			</div>
 		</div>
