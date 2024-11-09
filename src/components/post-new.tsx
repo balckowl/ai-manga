@@ -82,14 +82,20 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 		}
 
 		//ダミーデータ
-		const comics = [
-			{ img: urls[0], text: "こんばんは" },
-			{ img: urls[1], text: "こんばんは" },
-			{ img: urls[2], text: "こんばんは" },
-			{ img: urls[3], text: "こんばんは" },
-		];
+		// const comics = [
+		// 	{ img: urls[0], text: "こんばんは" },
+		// 	{ img: urls[1], text: "こんばんは" },
+		// 	{ img: urls[2], text: "こんばんは" },
+		// 	{ img: urls[3], text: "こんばんは" },
+		// ];
+		const res = await fetch("/api/gemini", {
+			method: "POST",
+			body: JSON.stringify({ images: urls }),
+		});
 
-		getComicsData(comics);
+		const comics = await res.json();
+
+		getComicsData(comics.contents);
 
 		console.log("Uploaded image URLs:", urls);
 	};
