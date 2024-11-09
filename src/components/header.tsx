@@ -8,7 +8,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export default async function Header() {
 	const session = await auth();
-	console.log(session);
 	return (
 		<header className="h-[100px]">
 			<div className="container mx-auto flex h-full items-center justify-between">
