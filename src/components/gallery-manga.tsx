@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import type { SelectComic, SelectUser } from "@/db/schema";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 import { FaRegTrashAlt } from "react-icons/fa";
 import Manga from "./manga";
 
@@ -22,8 +23,16 @@ type ComicType = { comic: SelectComic } & { user: SelectUser | null };
 
 export default function GalleryManga({ myComic }: Props) {
 	const { comic } = myComic;
-	const { title, contents, publishedAt } = comic;
+	const { title, contents, publishedAt, id } = comic;
 	const formatedPublishedAt = format(publishedAt, "yyyy/MM/dd");
+	const router = useRouter();
+
+	const handleDelete = async () => {
+		await fetch(`/api/post/${id}`, {
+			method: "DELETE",
+		});
+		router.refresh();
+	};
 
 	return (
 		<article>
@@ -49,7 +58,7 @@ export default function GalleryManga({ myComic }: Props) {
 								<Button
 									type="button"
 									variant="default"
-									onClick={() => console.log("削除するボタンが押されました")}
+									onClick={handleDelete}
 									className="font-bold"
 								>
 									削除する
