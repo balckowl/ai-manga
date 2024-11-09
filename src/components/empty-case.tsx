@@ -9,7 +9,7 @@ export default function EmptyCase() {
 				<Image src="/emptylocket.png" alt="" width={150} height={150} />
 			</div>
 			<div className="space-y-3">
-				<h1 className="font-bold text-3xl">まだ、作品がないみたい</h1>
+				<h4 className="font-bold text-3xl">まだ、作品がないみたい</h4>
 				<p>
 					作品を作ったらここに表示されるよ <br /> [あたらしくつくる]から作品を作ろう！
 				</p>
