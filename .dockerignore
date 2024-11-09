@@ -1,0 +1,10 @@
+Dockerfile
+docker-compose.yml
+.github
+.git
+README.md	
+.next
+.vscode
+.eslintrc.json
+lefthook.yml
+commitlint.config.ts

@@ -1,0 +1,19 @@
+FROM oven/bun:latest as builder
+WORKDIR /app
+
+#インストール
+COPY  package.json bun.lockb ./
+RUN bun install
+
+#ビルド
+COPY . .
+RUN bun run build
+
+
+FROM oven/bun:latest as production
+WORKDIR /app
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/static ./.next/static
+EXPOSE 3000
+CMD [ "bun", "server.js"]
