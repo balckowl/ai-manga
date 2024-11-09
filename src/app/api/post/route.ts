@@ -1,11 +1,12 @@
 import { db } from "@/db";
 import { comics } from "@/db/schema";
+import type { InsertComic } from "@/db/schema";
 import { NextResponse } from "next/server";
 
 type ComicInput = {
 	userId: string;
 	title: string;
-	contents: { text: string; img: string }[];
+	contents: InsertComic["contents"];
 };
 
 export async function POST(request: Request) {
