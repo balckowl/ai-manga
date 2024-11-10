@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import Image from "next/image";
 
 export default function PostCompleted() {
@@ -20,9 +21,11 @@ export default function PostCompleted() {
 					</h2>
 				</div>
 				<div className="flex justify-center gap-5">
-					<Button className="h-[50px] w-[250px] font-bold text-xl">もっとつくる</Button>
+					<Button className="h-[50px] w-[250px] font-bold text-xl"><Link href="/new">もっとつくる</Link></Button>
 					<Button className="h-[50px] w-[250px] border-4 border-black bg-white font-bold text-black text-xl hover:bg-gray-200">
-						みんなの作品を見る
+                        <Link href="/community">
+						    みんなの作品を見る
+                        </Link>
 					</Button>
 				</div>
 			</div>
