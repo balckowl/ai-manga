@@ -110,6 +110,56 @@ export async function getNewComics(userId: string) {
 	}
 }
 
+// いいね数が多い上位6件の漫画を取得する関数
+export async function getTopLikedComics(userId: string) {
+	try {
+		// 上位6件のいいね数が多い漫画を取得
+		const topLikedComics = await db
+			.select({
+				comic: comics,
+				likeCount: sql`COUNT(likes.id)`.as("likeCount"),
+				isLikedByUser:
+					sql`EXISTS(SELECT 1 FROM likes AS user_like WHERE user_like.userId = ${userId} AND user_like.comicId = comics.id)`.as(
+						"isLikedByUser",
+					),
+			})
+			.from(comics)
+			.leftJoin(likes, eq(likes.comicId, comics.id))
+			.groupBy(comics.id)
+			.orderBy(desc(sql`COUNT(likes.id)`))
+			.limit(6)
+			.execute();
+
+		return topLikedComics;
+	} catch (error) {
+		console.error("Error fetching top liked comics:", error);
+		throw new Error("Failed to fetch top liked comics");
+	}
+}
+
+// 特定のユーザーがいいねした全ての漫画を取得する関数
+export async function getLikedComicsForUser(userId: string) {
+	try {
+		// いいねした漫画を取得
+		const likedComics = await db
+			.select({
+				comic: comics,
+				likeCount: sql`COUNT(likes.id)`.as("likeCount"),
+				isLikedByUser: sql`TRUE`.as("isLikedByUser"),
+			})
+			.from(likes)
+			.innerJoin(comics, eq(likes.comicId, comics.id))
+			.where(eq(likes.userId, userId))
+			.groupBy(comics.id)
+			.execute();
+
+		return likedComics;
+	} catch (error) {
+		console.error("Error fetching liked comics for user:", error);
+		throw new Error("Failed to fetch liked comics");
+	}
+}
+
 // 漫画の個別取得
 export async function getComic(comicId: number, userId: string) {
 	try {
