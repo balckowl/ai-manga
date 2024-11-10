@@ -1,4 +1,4 @@
-FROM oven/bun:latest as builder
+FROM oven/bun:latest AS builder
 WORKDIR /app
 
 #インストール
@@ -10,7 +10,7 @@ COPY . .
 RUN bun run build
 
 
-FROM oven/bun:latest as production
+FROM oven/bun:latest AS production
 WORKDIR /app
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/public ./public
