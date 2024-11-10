@@ -1,22 +1,33 @@
 import { db } from "@/db";
 import { comics, likes, users } from "@/db/schema";
-import { desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 
-// 特定の comicId のいいね数を取得する関数
-export async function getLikeCountForComic(comicId: number) {
-	const likeCount = await db
-		.select({
-			count: sql`COUNT(*)`.as("count"),
-		})
-		.from(likes)
-		.where(eq(likes.comicId, comicId))
-		.execute();
+// 特定の comicId のいいね数とユーザーのいいねステータスを取得する関数
+export async function getLikeCountForComic(comicId: number, userId: string) {
+	const [likeCount, userLikeStatus] = await Promise.all([
+		db
+			.select({
+				count: sql`COUNT(*)`.as("count"),
+			})
+			.from(likes)
+			.where(eq(likes.comicId, comicId))
+			.execute(),
 
-	return likeCount[0]?.count || 0;
+		db
+			.select()
+			.from(likes)
+			.where(and(eq(likes.comicId, comicId), eq(likes.userId, userId)))
+			.execute(),
+	]);
+
+	return {
+		count: likeCount[0]?.count || 0,
+		isLikedByUser: userLikeStatus.length > 0,
+	};
 }
 
 // 漫画の全取得
-export async function getAllComics() {
+export async function getAllComics(userId: string) {
 	try {
 		const allComics = await db
 			.select()
@@ -24,12 +35,16 @@ export async function getAllComics() {
 			.leftJoin(users, eq(users.id, comics.userId))
 			.orderBy(desc(comics.publishedAt));
 
-		// いいね数を取得して追加
+		// いいね数とユーザーのいいねステータスを取得して追加
 		const comicsWithLikes = await Promise.all(
-			allComics.map(async (comic) => ({
-				...comic,
-				likeCount: await getLikeCountForComic(comic.comic.id),
-			})),
+			allComics.map(async (comic) => {
+				const { count, isLikedByUser } = await getLikeCountForComic(comic.comic.id, userId);
+				return {
+					...comic,
+					likeCount: count,
+					isLikedByUser,
+				};
+			}),
 		);
 
 		return comicsWithLikes;
@@ -50,10 +65,14 @@ export async function getAllMyComics(userId: string) {
 			.orderBy(desc(comics.publishedAt));
 
 		const comicsWithLikes = await Promise.all(
-			allMyComics.map(async (comic) => ({
-				...comic,
-				likeCount: await getLikeCountForComic(comic.comic.id),
-			})),
+			allMyComics.map(async (comic) => {
+				const { count, isLikedByUser } = await getLikeCountForComic(comic.comic.id, userId);
+				return {
+					...comic,
+					likeCount: count,
+					isLikedByUser,
+				};
+			}),
 		);
 
 		return comicsWithLikes;
@@ -64,7 +83,7 @@ export async function getAllMyComics(userId: string) {
 }
 
 // 新着漫画6件取得
-export async function getNewComics() {
+export async function getNewComics(userId: string) {
 	try {
 		const newComics = await db
 			.select()
@@ -74,10 +93,14 @@ export async function getNewComics() {
 			.limit(6);
 
 		const comicsWithLikes = await Promise.all(
-			newComics.map(async (comic) => ({
-				...comic,
-				likeCount: await getLikeCountForComic(comic.comic.id),
-			})),
+			newComics.map(async (comic) => {
+				const { count, isLikedByUser } = await getLikeCountForComic(comic.comic.id, userId);
+				return {
+					...comic,
+					likeCount: count,
+					isLikedByUser,
+				};
+			}),
 		);
 
 		return comicsWithLikes;
@@ -88,13 +111,13 @@ export async function getNewComics() {
 }
 
 // 漫画の個別取得
-export async function getComic(comicId: number) {
+export async function getComic(comicId: number, userId: string) {
 	try {
 		const comic = await db.select().from(comics).where(eq(comics.id, comicId)).execute();
 
 		if (comic.length > 0) {
-			const likeCount = await getLikeCountForComic(comic[0].id);
-			return { ...comic[0], likeCount };
+			const { count, isLikedByUser } = await getLikeCountForComic(comic[0].id, userId);
+			return { ...comic[0], likeCount: count, isLikedByUser };
 		}
 
 		return null;
