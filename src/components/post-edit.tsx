@@ -21,11 +21,26 @@ import Loading from "./loading";
 import PreviewIchikoma from "./preview-ichikoma";
 
 const mangaFormSchema = z.object({
-	title: z.string().min(1, { message: "タイトルを入力してください" }),
-	firstComa: z.string().min(1, { message: "文章を入力してください" }),
-	secondComa: z.string().min(1, { message: "文章を入力してください" }),
-	thirdComa: z.string().min(1, { message: "文章を入力してください" }),
-	fourthComa: z.string().min(1, { message: "文章を入力してください" }),
+	title: z
+		.string()
+		.min(1, { message: "タイトルを入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	firstComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	secondComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	thirdComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	fourthComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
 });
 
 type MangaFormSchemaType = z.infer<typeof mangaFormSchema>;
@@ -83,7 +98,7 @@ export default function PostEdit({ comics, onEditCompleted, backToNew, userId }:
 
 	return (
 		<>
-			{form.formState.isSubmitting && <Loading />}
+			{form.formState.isSubmitting && <Loading text="公開中..." />}
 
 			{!form.formState.isSubmitting && (
 				<div className="mx-auto max-w-[800px]">

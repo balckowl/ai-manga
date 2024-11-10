@@ -108,8 +108,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 
 	return (
 		<>
-			{form.formState.isSubmitting && <Loading />}
-
+			{form.formState.isSubmitting && <Loading text="執筆中..." />}
 			{!form.formState.isSubmitting && (
 				<div className="flex h-[calc(100vh-200px)] items-center">
 					<div className="container mx-auto">
