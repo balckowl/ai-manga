@@ -1,0 +1,53 @@
+name: ai-manga
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - production
+    paths:
+      - "src/**"
+      - ".github/workflows/**"
+      - "Dockerfile.prod"
+      - "supabase"
+
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up environment variables
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          AUTH_GOOGLE_ID: ${{ secrets.AUTH_GOOGLE_ID }}
+          AUTH_GOOGLE_SECRET: ${{ secrets.AUTH_GOOGLE_SECRET }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          echo "DATABASE_URL=${DATABASE_URL}" >> .env
+          echo "SHADOW_DATABASE_URL=${SHADOW_DATABASE_URL}" >> .env
+          echo "IMAGE_BASE_URL=${IMAGE_BASE_URL}" >> .env
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/matsuri:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/matsuri:latest
+          file: ./Dockerfile.prod
+          context: .
+
