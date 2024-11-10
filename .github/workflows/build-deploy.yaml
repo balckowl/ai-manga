@@ -10,6 +10,8 @@ on:
       - "Dockerfile.prod"
       - "supabase"
 
+env:
+  PROJECT_NAME: ai-manga
 
 jobs:
   docker-build-push:
@@ -51,8 +53,8 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/matsuri:${{ github.sha }}
-            ${{ secrets.DOCKER_USERNAME }}/matsuri:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{env.PROJECT_NAME}}:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/${{env.PROJECT_NAME}}:latest
           file: ./Dockerfile.prod
           context: .
 
