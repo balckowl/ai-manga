@@ -27,9 +27,10 @@ export default async function MyPage() {
 				</div>
 				<hr className="container mx-auto border-t-2" />
 			</div>
-
-			<MangaIchiran title="いいね数の多い作品" comicsWithAuthor={comicsWithAuthor} />
-			<MangaIchiran title="新着一覧" comicsWithAuthor={comicsWithAuthor} />
+			<div className="container mx-auto">
+				<MangaIchiran title="いいね数の多い作品" comicsWithAuthor={comicsWithAuthor} />
+				<MangaIchiran title="新着一覧" comicsWithAuthor={comicsWithAuthor} />
+			</div>
 		</div>
 	);
 }
