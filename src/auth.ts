@@ -4,6 +4,7 @@ import Google from "next-auth/providers/google";
 import { db } from "./db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+	trustHost: true,
 	basePath: "/api/auth",
 	callbacks: {
 		async session({ session, user }: { session: Session; user: User }) {
