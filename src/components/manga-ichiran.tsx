@@ -12,9 +12,9 @@ type ComicType = { comic: SelectComic } & { user: SelectUser | null };
 
 export default function MangaIchiran({ title, comicsWithAuthor }: Props) {
 	return (
-		<div className="container mx-auto pt-[100px]">
+		<div className="mx-auto pt-[70px] lg:pt-[100px]">
 			<SubTitle title={title} />
-			<div className="grid grid-cols-3 gap-9">
+			<div className="grid grid-cols-1 gap-9 md:grid-cols-2 lg:grid-cols-3">
 				{comicsWithAuthor.map((comicWithAuthor, i) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					<MangaDialog comicWithAuthor={comicWithAuthor} key={i}>

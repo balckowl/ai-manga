@@ -110,7 +110,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 		<>
 			{form.formState.isSubmitting && <Loading text="執筆中..." />}
 			{!form.formState.isSubmitting && (
-				<div className="flex h-[calc(100vh-200px)] items-center">
+				<div className="mx-auto flex w-[90%] items-center pb-[100px] lg:h-[calc(100vh-200px)] lg:pb-0">
 					<div className="container mx-auto">
 						<div className="mb-[30px] text-center">
 							<h2 className="mb-[2px] font-bold text-[35px]">マンガに使う画像を4枚決めよう</h2>
@@ -121,7 +121,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 
 						<Form {...form}>
 							<form onSubmit={form.handleSubmit(onSubmit)}>
-								<div className="mx-auto mb-[30px] flex w-[820px] flex-wrap gap-4">
+								<div className="mx-auto mb-[30px] flex flex-col flex-wrap gap-4 lg:w-[820px] lg:flex-row">
 									{imageUrls.map((image, index) => (
 										<FormField
 											control={form.control}
@@ -131,7 +131,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 											render={({
 												field,
 											}: { field: ControllerRenderProps<FormSchemaType, `images.${number}`> }) => (
-												<div className="relative flex h-[240px] w-[400px] items-center justify-center overflow-hidden border-[3px] border-black">
+												<div className="relative flex h-[240px] w-full items-center justify-center overflow-hidden border-[3px] border-black lg:w-[400px]">
 													{image ? (
 														<Image
 															src={image}
@@ -177,8 +177,8 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 									</Button>
 									<Button
 										type="button"
-										className="w-[200px] font-bold"
-										variant="secondary"
+										className=" w-[200px] border-2 border-black border-solid font-bold"
+										variant="outline"
 										onClick={handleReset}
 									>
 										キャンセル

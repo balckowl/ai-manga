@@ -12,23 +12,26 @@ export default async function MyPage() {
 
 	return (
 		<div className="pb-[100px]">
-			<div className="container mx-auto py-10 text-center font-bold">
+			<div className="mx-auto w-[90%] py-10 text-center font-bold">
 				<div className="mb-14">
-					<h1 className="p-4 text-5xl">{session?.user?.name}、おかえり！</h1>
-					<p className="text-[20px]">あたらしいアイデアは浮かんだ？</p>
+					<h1 className="p-4 text-4xl lg:text-5xl">{session?.user?.name}先生、おかえり！</h1>
+					<p className="text-[20px]">画像を４枚用意して、はじめよう。</p>
 				</div>
-				<div className="mb-20 flex justify-center gap-5">
-					<Button className="h-[50px] w-[250px] font-bold text-xl">
+				<div className="mb-20 flex flex-col justify-center gap-2 md:flex-row md:gap-5">
+					<Button className="h-[60px] w-full font-bold text-xl lg:w-[270px]">
 						<Link href="/new">あたらしくつくる</Link>
 					</Button>
-					<Button variant="ghost" className="h-[50px] w-[250px] font-bold text-xl">
+					<Button
+						variant="outline"
+						className="h-[60px] w-full border-2 border-black border-solid font-bold text-xl lg:w-[270px]"
+					>
 						<Link href="/community">みんなの作品を見る</Link>
 					</Button>
 				</div>
 				<hr className="container mx-auto border-t-2" />
 			</div>
-			<div className="container mx-auto">
-				<MangaIchiran title="いいね数の多い作品" comicsWithAuthor={comicsWithAuthor} />
+			<div className="mx-auto w-[90%]">
+				<MangaIchiran title="人気作品" comicsWithAuthor={comicsWithAuthor} />
 				<MangaIchiran title="新着一覧" comicsWithAuthor={comicsWithAuthor} />
 			</div>
 		</div>

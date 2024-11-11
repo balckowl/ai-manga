@@ -6,7 +6,7 @@ export default async function Page() {
 
 	return (
 		<>
-			<div className="container mx-auto pb-[100px]">
+			<div className="mx-auto w-[90%]">
 				<MangaIchiran title="みんながつくった作品" comicsWithAuthor={allComics} />
 			</div>
 		</>
