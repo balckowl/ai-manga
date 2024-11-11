@@ -177,7 +177,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 									</Button>
 									<Button
 										type="button"
-										className="w-full border-2 border-black border-solid font-bold md:w-[200px]"
+										className=" w-[200px] border-2 border-black border-solid font-bold"
 										variant="outline"
 										onClick={handleReset}
 									>
