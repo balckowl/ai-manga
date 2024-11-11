@@ -39,7 +39,7 @@ export default function Manga({ title, contents }: Props) {
 				modules={[Navigation, Autoplay, Pagination]}
 				spaceBetween={50}
 				slidesPerView={1}
-				className="relative mb-[3px] border-[3px] border-black"
+				className="relative mb-[3px] w-full border-[3px] border-black"
 			>
 				{contents.map((content) => (
 					<SwiperSlide key={content.img} className="h-[400px]">
@@ -47,7 +47,7 @@ export default function Manga({ title, contents }: Props) {
 							src={content.img}
 							width={500}
 							height={400}
-							className="h-[270px] object-cover"
+							className="h-[270px] object-contain"
 							alt=""
 						/>
 						<div className="absolute top-0 right-0 z-[10] flex h-[220px] w-[90px] items-center justify-center border-black border-b-[3px] border-l-[3px] bg-white p-2 [writing-mode:vertical-rl]">

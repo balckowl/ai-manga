@@ -1,4 +1,5 @@
 import type { SelectComic, SelectUser } from "@/db/schema";
+import MangaDialog from "./manga-dialog";
 import SubTitle from "./sub-title";
 import TopManga from "./top-manga";
 
@@ -16,7 +17,9 @@ export default function MangaIchiran({ title, comicsWithAuthor }: Props) {
 			<div className="grid grid-cols-3 gap-9">
 				{comicsWithAuthor.map((comicWithAuthor, i) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					<TopManga comicWithAuthor={comicWithAuthor} key={i} />
+					<MangaDialog comicWithAuthor={comicWithAuthor} key={i}>
+						<TopManga comicWithAuthor={comicWithAuthor} />
+					</MangaDialog>
 				))}
 			</div>
 		</div>
