@@ -309,14 +309,14 @@ export default function PostEdit({ comics, onEditCompleted, backToNew, userId }:
 												/>
 											</div>
 
-											<div className="mx-auto w-[450px] w-full rounded-md bg-gray-300 p-4 text-center">
+											<div className="mx-auto w-full rounded-md bg-gray-300 p-4 text-center">
 												<p>公開される情報</p>
 												<ul>
 													<li className="mt-2">・アカウントの表示名</li>
 												</ul>
 											</div>
 
-											<div className="mx-auto grid w-[450px] w-full grid-cols-1 gap-2 md:grid-cols-2">
+											<div className="mx-auto grid w-full grid-cols-1 gap-2 md:grid-cols-2">
 												<Button
 													type="submit"
 													variant="default"

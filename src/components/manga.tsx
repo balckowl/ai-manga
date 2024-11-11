@@ -19,7 +19,7 @@ type Props = {
 
 export default function Manga({ title, contents }: Props) {
 	return (
-		<div>
+		<div className="w-full">
 			<h2 className="mb-[13px] bg-black py-[6px] text-center font-bold text-white">{title}</h2>
 			<Swiper
 				style={
