@@ -2,8 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function PostCompleted() {
+type Props = {
+	handleBackToNew: () => void;
+};
+
+export default function PostCompleted({ handleBackToNew }: Props) {
 	return (
 		<div className="flex h-[calc(100vh-200px)] items-center justify-center">
 			<div className="relative">
@@ -20,9 +25,11 @@ export default function PostCompleted() {
 					</h2>
 				</div>
 				<div className="flex justify-center gap-5">
-					<Button className="h-[50px] w-[250px] font-bold text-xl">もっとつくる</Button>
+					<Button onClick={handleBackToNew} className="h-[50px] w-[250px] font-bold text-xl">
+						もっとつくる
+					</Button>
 					<Button className="h-[50px] w-[250px] border-4 border-black bg-white font-bold text-black text-xl hover:bg-gray-200">
-						みんなの作品を見る
+						<Link href="/community">みんなの作品を見る</Link>
 					</Button>
 				</div>
 			</div>

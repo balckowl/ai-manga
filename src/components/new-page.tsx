@@ -20,6 +20,7 @@ export default function NewPage({ userId }: Props) {
 	]);
 
 	const handleImageUploadSuccess = () => setStage("edit");
+	const handleBackToNew = () => setStage("new");
 	const handleEditCompleted = () => setStage("completed");
 	const getComicsData = (comics: SelectComic["contents"]) => setComics(comics);
 
@@ -29,9 +30,14 @@ export default function NewPage({ userId }: Props) {
 				<PostNew onImageUploadSuccess={handleImageUploadSuccess} getComicsData={getComicsData} />
 			)}
 			{stage === "edit" && (
-				<PostEdit onEditCompleted={handleEditCompleted} comics={comics} userId={userId} />
+				<PostEdit
+					onEditCompleted={handleEditCompleted}
+					backToNew={handleBackToNew}
+					comics={comics}
+					userId={userId}
+				/>
 			)}
-			{stage === "completed" && <PostCompleted />}
+			{stage === "completed" && <PostCompleted handleBackToNew={handleBackToNew} />}
 		</>
 	);
 }

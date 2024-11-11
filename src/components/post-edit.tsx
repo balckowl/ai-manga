@@ -6,9 +6,7 @@ import {
 	Dialog,
 	DialogClose,
 	DialogContent,
-	DialogDescription,
 	DialogHeader,
-	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
@@ -18,16 +16,31 @@ import type { SelectComic } from "@/db/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { type ControllerRenderProps, type SubmitHandler, useForm } from "react-hook-form";
-import { MdOutlineFileUpload } from "react-icons/md";
 import { z } from "zod";
 import Loading from "./loading";
+import PreviewIchikoma from "./preview-ichikoma";
 
 const mangaFormSchema = z.object({
-	title: z.string().min(1, { message: "タイトルを入力してください" }),
-	firstComa: z.string().min(1, { message: "文章を入力してください" }),
-	secondComa: z.string().min(1, { message: "文章を入力してください" }),
-	thirdComa: z.string().min(1, { message: "文章を入力してください" }),
-	fourthComa: z.string().min(1, { message: "文章を入力してください" }),
+	title: z
+		.string()
+		.min(1, { message: "タイトルを入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	firstComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	secondComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	thirdComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
+	fourthComa: z
+		.string()
+		.min(1, { message: "文章を入力してください" })
+		.max(30, { message: "30文字以内で入力してください。" }),
 });
 
 type MangaFormSchemaType = z.infer<typeof mangaFormSchema>;
@@ -35,11 +48,12 @@ type MangaFormSchemaType = z.infer<typeof mangaFormSchema>;
 type Props = {
 	comics: SelectComic["contents"];
 	onEditCompleted: () => void;
+	backToNew: () => void;
 	userId: string;
 };
 
-export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
-	const [title, setTitle] = useState("lorem");
+export default function PostEdit({ comics, onEditCompleted, backToNew, userId }: Props) {
+	const [title, setTitle] = useState("タイトルを入力して");
 	const [firstComa, setFirstComa] = useState(comics[0].text);
 	const [secondComa, setSecondComa] = useState(comics[1].text);
 	const [thirdComa, setThirdComa] = useState(comics[2].text);
@@ -84,7 +98,7 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 
 	return (
 		<>
-			{form.formState.isSubmitting && <Loading />}
+			{form.formState.isSubmitting && <Loading text="公開中..." />}
 
 			{!form.formState.isSubmitting && (
 				<div className="mx-auto max-w-[800px]">
@@ -112,7 +126,9 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 											field,
 										}: { field: ControllerRenderProps<MangaFormSchemaType, "title"> }) => (
 											<FormItem>
-												<FormLabel htmlFor="title">タイトル</FormLabel>
+												<FormLabel htmlFor="title" className="font-bold">
+													タイトル
+												</FormLabel>
 												{form.formState.errors.title && (
 													<p className="text-red-500">{form.formState.errors.title.message}</p>
 												)}
@@ -141,7 +157,10 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 											field,
 										}: { field: ControllerRenderProps<MangaFormSchemaType, "firstComa"> }) => (
 											<FormItem>
-												<FormLabel htmlFor="firstComa">1コマ目</FormLabel>
+												<FormLabel htmlFor="firstComa" className="font-bold">
+													1コマ目
+												</FormLabel>
+												<PreviewIchikoma content={{ img: comics[0].img, text: firstComa }} />
 												{form.formState.errors.firstComa && (
 													<p className="text-red-500">{form.formState.errors.firstComa.message}</p>
 												)}
@@ -170,7 +189,10 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 											field,
 										}: { field: ControllerRenderProps<MangaFormSchemaType, "secondComa"> }) => (
 											<FormItem>
-												<FormLabel htmlFor="secondComa">2コマ目</FormLabel>
+												<FormLabel htmlFor="secondComa" className="font-bold">
+													2コマ目
+												</FormLabel>
+												<PreviewIchikoma content={{ img: comics[1].img, text: secondComa }} />
 												{form.formState.errors.secondComa && (
 													<p className="text-red-500">{form.formState.errors.secondComa.message}</p>
 												)}
@@ -199,7 +221,10 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 											field,
 										}: { field: ControllerRenderProps<MangaFormSchemaType, "thirdComa"> }) => (
 											<FormItem>
-												<FormLabel htmlFor="thirdComa">3コマ目</FormLabel>
+												<FormLabel htmlFor="thirdComa" className="font-bold">
+													3コマ目
+												</FormLabel>
+												<PreviewIchikoma content={{ img: comics[2].img, text: thirdComa }} />
 												{form.formState.errors.thirdComa && (
 													<p className="text-red-500">{form.formState.errors.thirdComa.message}</p>
 												)}
@@ -228,7 +253,10 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 											field,
 										}: { field: ControllerRenderProps<MangaFormSchemaType, "fourthComa"> }) => (
 											<FormItem>
-												<FormLabel htmlFor="fourthComa">4コマ目</FormLabel>
+												<FormLabel htmlFor="fourthComa" className="font-bold">
+													4コマ目
+												</FormLabel>
+												<PreviewIchikoma content={{ img: comics[3].img, text: fourthComa }} />
 												{form.formState.errors.fourthComa && (
 													<p className="text-red-500">{form.formState.errors.fourthComa.message}</p>
 												)}
@@ -249,63 +277,60 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 									/>
 								</div>
 
-								<div>
-									<div className="text-center">
-										<h3 className="mt-10 font-bold text-2xl md:text-4xl">最終確認をしよう！</h3>
-										<p>これを公開してもいいかな？</p>
-									</div>
-
-									<div className="mx-auto mt-4 max-w-[500px]">
-										<Manga
-											title={title}
-											contents={[
-												{ img: comics[0].img, text: firstComa },
-												{ img: comics[1].img, text: secondComa },
-												{ img: comics[2].img, text: thirdComa },
-												{ img: comics[3].img, text: fourthComa },
-											]}
-										/>
-									</div>
-								</div>
-
-								<div className="my-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+								<div className="my-10 grid grid-cols-1 gap-2 sm:grid-cols-2">
 									<Dialog open={isDialogOpen} onOpenChange={setIsOpen}>
 										<DialogTrigger asChild>
 											<Button
 												type="button"
 												variant="default"
-												onClick={() => console.log("削除するボタンが押されました")}
-												className="font-bold"
+												className="py-6 font-bold text-xl"
 												disabled={!form.formState.isValid}
 											>
-												公開する
+												確認する
 											</Button>
 										</DialogTrigger>
 
-										<DialogContent className="w-[90%] max-w-[700px] rounded-md">
+										<DialogContent className="w-[90%] max-w-[1000px] rounded-md">
 											<DialogHeader>
-												<DialogTitle className="mx-auto mb-10 text-center">作品の公開</DialogTitle>
-												<DialogDescription className="text-center text-black text-md">
+												{/* <DialogTitle className="mx-auto mb-4 text-center md:mb-10">作品の公開</DialogTitle> */}
+												<div className="text-center text-black">
+													<p className="font-bold text-2xl md:text-4xl">最終確認をしよう！</p>
+													<p className="mt-2">これを公開してもいいかな？</p>
+												</div>
+
+												<div className="mx-auto mt-[100px] max-w-[500px]">
+													<Manga
+														title={title}
+														contents={[
+															{ img: comics[0].img, text: firstComa },
+															{ img: comics[1].img, text: secondComa },
+															{ img: comics[2].img, text: thirdComa },
+															{ img: comics[3].img, text: fourthComa },
+														]}
+													/>
+												</div>
+
+												{/* <DialogDescription className="text-center text-black text-md">
 													作品を公開するよ
 													<br />
 													公開した作品は編集できないから注意してね！
-												</DialogDescription>
+												</DialogDescription> */}
 
-												<MdOutlineFileUpload className="mx-auto my-[20px] text-9xl text-black md:my-[35px]" />
+												{/* <MdOutlineFileUpload className="mx-auto my-[20px] text-9xl text-black md:my-[35px]" /> */}
 
-												<div className="relative rounded-md bg-gray-300 p-4 text-center">
+												<div className="mx-auto w-full max-w-[500px] rounded-md bg-gray-300 p-4 text-center">
 													<p>公開される情報</p>
 													<ul>
 														<li className="mt-2">・アカウントの表示名</li>
 													</ul>
 												</div>
 
-												<div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+												<div className="mx-auto grid w-full max-w-[500px] grid-cols-1 gap-2 md:grid-cols-2">
 													<Button
 														type="submit"
 														variant="default"
 														onClick={form.handleSubmit(onSubmit)}
-														className="mt-5 font-bold"
+														className="font-bold"
 														disabled={form.formState.isSubmitting}
 													>
 														公開する
@@ -315,7 +340,7 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 															type="button"
 															variant="outline"
 															onClick={() => console.log("キャンセルボタンが押されました")}
-															className="border-2 border-black border-solid font-bold md:mt-5"
+															className="border-2 border-black border-solid font-bold"
 														>
 															キャンセル
 														</Button>
@@ -328,8 +353,8 @@ export default function PostEdit({ comics, onEditCompleted, userId }: Props) {
 									<Button
 										type="button"
 										variant="outline"
-										onClick={() => console.log("戻るボタンが押されました")}
-										className="border-2 border-black border-solid font-bold"
+										onClick={backToNew}
+										className="border-2 border-black border-solid py-[22px] font-bold text-xl"
 									>
 										戻る
 									</Button>
