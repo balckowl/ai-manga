@@ -12,7 +12,9 @@ on:
 
 env:
   PROJECT_NAME: ai-manga
-  REPO_NAME: puragu/ai-manga-infra
+  ORG_NAME: puragu
+  REPO_NAME: ai-manga-infra
+  DEPLOYMENT_FILE_NAME: 01-deployment.yaml
 
 jobs:
   docker-build-push:
@@ -66,5 +68,10 @@ jobs:
         run: |
           git config --global user.email "hrt_ioo1279@outlook.jp"
           git config --global user.name "potekichi"
-          git clone https://potekichi:${{ secrets.INFRA_REPO_PAT }}@github.com/${{ env.REPO_NAME }}.git
+          git clone https://potekichi:${{ secrets.INFRA_REPO_PAT }}@github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}.git
           ls
+          cd ${{ env.REPO_NAME}}
+          sed -i 's|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.run_id }}|' ${{ env.DEPLOYMENT_FILE_NAME }}
+          git add .
+          git commit -m "Update image tag to ${{ github.sha }}"
+          git push https://potekichi:${{ secrets.INFRA_REPO_PAT }}@github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}.git
