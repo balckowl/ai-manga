@@ -12,7 +12,7 @@ on:
 
 env:
   PROJECT_NAME: ai-manga
-  REPO_NAME: ai-manga-infra
+  REPO_NAME: puragu/ai-manga-infra
 
 jobs:
   docker-build-push:
