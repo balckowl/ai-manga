@@ -13,7 +13,7 @@ export default function TopManga({ comicWithAuthor }: Props) {
 	return (
 		<article>
 			<Manga title={title} contents={contents} />
-			<p className="text-3 text-[#808080]">
+			<p className="flex justify-start text-3 text-[#808080]">
 				{user?.name}先生・{format(publishedAt, "yyyy/MM/dd")}
 			</p>
 		</article>
