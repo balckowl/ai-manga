@@ -53,7 +53,7 @@ export async function POST(request: Request) {
 		if (typeof response.content === "string") {
 			try {
 				descriptions = JSON.parse(response.content);
-			} catch (_e) {
+			} catch {
 				descriptions = [response.content];
 			}
 		} else {
