@@ -138,7 +138,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 															alt={`Selected ${index + 1}`}
 															width={400}
 															height={240}
-															objectFit="cover"
+															className="h-[240px] object-contain"
 															priority
 														/>
 													) : (

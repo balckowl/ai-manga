@@ -6,7 +6,7 @@ import {
 	Dialog,
 	DialogClose,
 	DialogContent,
-	DialogHeader,
+	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
@@ -53,7 +53,7 @@ type Props = {
 };
 
 export default function PostEdit({ comics, onEditCompleted, backToNew, userId }: Props) {
-	const [title, setTitle] = useState("タイトルを入力して");
+	const [title, setTitle] = useState("");
 	const [firstComa, setFirstComa] = useState(comics[0].text);
 	const [secondComa, setSecondComa] = useState(comics[1].text);
 	const [thirdComa, setThirdComa] = useState(comics[2].text);
@@ -290,63 +290,53 @@ export default function PostEdit({ comics, onEditCompleted, backToNew, userId }:
 											</Button>
 										</DialogTrigger>
 
-										<DialogContent className="w-[90%] max-w-[1000px] rounded-md">
-											<DialogHeader>
-												{/* <DialogTitle className="mx-auto mb-4 text-center md:mb-10">作品の公開</DialogTitle> */}
-												<div className="text-center text-black">
-													<p className="font-bold text-2xl md:text-4xl">最終確認をしよう！</p>
-													<p className="mt-2">これを公開してもいいかな？</p>
-												</div>
+										<DialogContent className="w-full rounded-md">
+											<DialogTitle className="mx-auto text-center">作品の公開</DialogTitle>
+											<div className="text-center text-black">
+												<p className="font-bold text-2xl md:text-4xl">最終確認をしよう！</p>
+												<p className="mt-2">これを公開してもいいかな？</p>
+											</div>
 
-												<div className="mx-auto mt-[100px] max-w-[500px]">
-													<Manga
-														title={title}
-														contents={[
-															{ img: comics[0].img, text: firstComa },
-															{ img: comics[1].img, text: secondComa },
-															{ img: comics[2].img, text: thirdComa },
-															{ img: comics[3].img, text: fourthComa },
-														]}
-													/>
-												</div>
+											<div className="mx-auto w-[450px]">
+												<Manga
+													title={title}
+													contents={[
+														{ img: comics[0].img, text: firstComa },
+														{ img: comics[1].img, text: secondComa },
+														{ img: comics[2].img, text: thirdComa },
+														{ img: comics[3].img, text: fourthComa },
+													]}
+												/>
+											</div>
 
-												{/* <DialogDescription className="text-center text-black text-md">
-													作品を公開するよ
-													<br />
-													公開した作品は編集できないから注意してね！
-												</DialogDescription> */}
+											<div className="mx-auto w-[450px] w-full rounded-md bg-gray-300 p-4 text-center">
+												<p>公開される情報</p>
+												<ul>
+													<li className="mt-2">・アカウントの表示名</li>
+												</ul>
+											</div>
 
-												{/* <MdOutlineFileUpload className="mx-auto my-[20px] text-9xl text-black md:my-[35px]" /> */}
-
-												<div className="mx-auto w-full max-w-[500px] rounded-md bg-gray-300 p-4 text-center">
-													<p>公開される情報</p>
-													<ul>
-														<li className="mt-2">・アカウントの表示名</li>
-													</ul>
-												</div>
-
-												<div className="mx-auto grid w-full max-w-[500px] grid-cols-1 gap-2 md:grid-cols-2">
+											<div className="mx-auto grid w-[450px] w-full grid-cols-1 gap-2 md:grid-cols-2">
+												<Button
+													type="submit"
+													variant="default"
+													onClick={form.handleSubmit(onSubmit)}
+													className="font-bold"
+													disabled={form.formState.isSubmitting}
+												>
+													公開する
+												</Button>
+												<DialogClose asChild>
 													<Button
-														type="submit"
-														variant="default"
-														onClick={form.handleSubmit(onSubmit)}
-														className="font-bold"
-														disabled={form.formState.isSubmitting}
+														type="button"
+														variant="outline"
+														onClick={() => console.log("キャンセルボタンが押されました")}
+														className="border-2 border-black border-solid font-bold"
 													>
-														公開する
+														キャンセル
 													</Button>
-													<DialogClose asChild>
-														<Button
-															type="button"
-															variant="outline"
-															onClick={() => console.log("キャンセルボタンが押されました")}
-															className="border-2 border-black border-solid font-bold"
-														>
-															キャンセル
-														</Button>
-													</DialogClose>
-												</div>
-											</DialogHeader>
+												</DialogClose>
+											</div>
 										</DialogContent>
 									</Dialog>
 
