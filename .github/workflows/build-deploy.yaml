@@ -70,7 +70,7 @@ jobs:
           git config --global user.name "potekichi"
           git clone https://potekichi:${{ secrets.INFRA_REPO_PAT }}@github.com/${{ env.ORG_NAME }}/${{ env.REPO_NAME }}.git
           ls
-          cd ${{ env.REPO_NAME}}/app
+          cd ${{ env.REPO_NAME}}
           sed -i 's|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:.*|image: ${{ secrets.DOCKER_USERNAME }}/${{ env.PROJECT_NAME }}:${{ github.run_id }}|' ${{ env.DEPLOYMENT_FILE_NAME }}
           git add .
           git commit -m "Update image tag to ${{ github.sha }}"
