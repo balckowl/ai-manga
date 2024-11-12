@@ -37,7 +37,12 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 
 	const handleImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
-		if (file) {
+
+        if (!file) {
+            console.log("No file selected")
+            setImageUrls(prevImageUrls => prevImageUrls.map((url, i) => i === index ? null : url));
+        } else {
+            console.log("File selected:", file);
 			// フォーム用
 			const newImages = [...form.getValues("images")];
 			newImages[index] = file;
