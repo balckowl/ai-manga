@@ -17,6 +17,5 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/static ./.next/static
 EXPOSE 3000
 ENV NODE_ENV=production
-ENV HOSTNAME="4koma.agupiedpiper.com"
 
 CMD [ "bun", "server.js"]
