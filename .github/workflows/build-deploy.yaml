@@ -40,7 +40,7 @@ jobs:
           echo "AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}" >> .env
           echo "AUTH_SECRET=${AUTH_SECRET}" >> .env
           echo "GEMINI_API_KEY=${GEMINI_API_KEY}" >> .env
-          echo "AUTH_URL=http://4koma.agupiedpiper.com//api/auth/callback/google" >> .env
+          echo "AUTH_URL=https://4koma.agupiedpiper.com/api/auth/" >> .env
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
