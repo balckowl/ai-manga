@@ -1,21 +1,21 @@
-FROM node:23-alpine3.19 AS builder
+FROM oven/bun:latest AS builder
 WORKDIR /app
 
 #インストール
-COPY  package.json  ./
-RUN npm install
+COPY  package.json bun.lockb ./
+RUN bun install
 
 #ビルド
 COPY . .
-RUN npm run build
+RUN bun run build
 
 
-FROM node:23-alpine3.19 AS production
+FROM oven/bun:latest AS production
 WORKDIR /app
 
-# COPY .env ./
+COPY .env ./
 COPY package.json ./
-RUN npm install --production
+RUN bun install --production
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
@@ -23,4 +23,4 @@ COPY --from=builder /app/public ./public
 EXPOSE 3000
 ENV NODE_ENV=production
 
-CMD [ "npm", "run", "start"]
+CMD [ "bun", "run", "start"]
