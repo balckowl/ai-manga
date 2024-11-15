@@ -9,6 +9,7 @@ on:
       - ".github/workflows/**"
       - "Dockerfile.prod"
       - "supabase"
+      - "next.config.*"
 
 env:
   PROJECT_NAME: ai-manga
