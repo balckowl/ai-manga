@@ -38,11 +38,11 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 	const handleImageChange = (index: number, event: ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
 
-        if (!file) {
-            console.log("No file selected")
-            setImageUrls(prevImageUrls => prevImageUrls.map((url, i) => i === index ? null : url));
-        } else {
-            console.log("File selected:", file);
+		if (!file) {
+			console.log("No file selected");
+			setImageUrls((prevImageUrls) => prevImageUrls.map((url, i) => (i === index ? null : url)));
+		} else {
+			console.log("File selected:", file);
 			// フォーム用
 			const newImages = [...form.getValues("images")];
 			newImages[index] = file;
@@ -113,7 +113,7 @@ export default function PostNew({ onImageUploadSuccess, getComicsData }: Props) 
 
 	return (
 		<>
-			{form.formState.isSubmitting && <Loading text="執筆中..." />}
+			{form.formState.isSubmitting && <Loading text="制作中..." />}
 			{!form.formState.isSubmitting && (
 				<div className="mx-auto flex w-[90%] items-center pb-[100px] lg:h-[calc(100vh-200px)] lg:pb-0">
 					<div className="container mx-auto">
