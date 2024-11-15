@@ -290,14 +290,14 @@ export default function PostEdit({ comics, onEditCompleted, backToNew, userId }:
 											</Button>
 										</DialogTrigger>
 
-										<DialogContent className="w-full rounded-md">
+										<DialogContent className="h-[95svh] max-h-[700px] w-[95%] overflow-y-auto rounded-md">
 											<DialogTitle className="mx-auto text-center">作品の公開</DialogTitle>
 											<div className="text-center text-black">
 												<p className="font-bold text-2xl md:text-4xl">最終確認をしよう！</p>
 												<p className="mt-2">これを公開してもいいかな？</p>
 											</div>
-
-											<div className="mx-auto w-[450px]">
+											
+											<div className="mx-auto w-[300px] sm:w-[450px]">
 												<Manga
 													title={title}
 													contents={[
@@ -309,14 +309,14 @@ export default function PostEdit({ comics, onEditCompleted, backToNew, userId }:
 												/>
 											</div>
 
-											<div className="mx-auto w-full rounded-md bg-gray-300 p-4 text-center">
+											<div className="mx-auto w-[300px] rounded-md bg-gray-300 p-4 text-center sm:w-[450px]">
 												<p>公開される情報</p>
 												<ul>
 													<li className="mt-2">・アカウントの表示名</li>
 												</ul>
 											</div>
 
-											<div className="mx-auto grid w-full grid-cols-1 gap-2 md:grid-cols-2">
+											<div className="mx-auto grid w-[300px] grid-cols-1 gap-2 sm:w-[450px] md:grid-cols-2">
 												<Button
 													type="submit"
 													variant="default"

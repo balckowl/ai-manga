@@ -42,7 +42,7 @@ export default function GalleryManga({ myComic }: Props) {
 						<FaRegTrashAlt className="transition-colors duration-200 hover:text-red-400" />
 					</DialogTrigger>
 
-					<DialogContent className="w-[600px]">
+					<DialogContent className="w-[95%] max-w-[600px] rounded-md">
 						<DialogTitle className="mx-auto text-center">作品の削除</DialogTitle>
 						<FaRegTrashAlt className="mx-auto mt-[30px] mb-[20px] text-9xl text-black" />
 						<div className="mb-[20px] text-center">
