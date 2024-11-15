@@ -24,23 +24,23 @@ const mangaFormSchema = z.object({
 	title: z
 		.string()
 		.min(1, { message: "タイトルを入力してください" })
-		.max(30, { message: "30文字以内で入力してください。" }),
+		.max(20, { message: "20文字以内で入力してください。" }),
 	firstComa: z
 		.string()
 		.min(1, { message: "文章を入力してください" })
-		.max(30, { message: "30文字以内で入力してください。" }),
+		.max(50, { message: "50文字以内で入力してください。" }),
 	secondComa: z
 		.string()
 		.min(1, { message: "文章を入力してください" })
-		.max(30, { message: "30文字以内で入力してください。" }),
+		.max(50, { message: "50文字以内で入力してください。" }),
 	thirdComa: z
 		.string()
 		.min(1, { message: "文章を入力してください" })
-		.max(30, { message: "30文字以内で入力してください。" }),
+		.max(50, { message: "50文字以内で入力してください。" }),
 	fourthComa: z
 		.string()
 		.min(1, { message: "文章を入力してください" })
-		.max(30, { message: "30文字以内で入力してください。" }),
+		.max(50, { message: "50文字以内で入力してください。" }),
 });
 
 type MangaFormSchemaType = z.infer<typeof mangaFormSchema>;
@@ -296,7 +296,7 @@ export default function PostEdit({ comics, onEditCompleted, backToNew, userId }:
 												<p className="font-bold text-2xl md:text-4xl">最終確認をしよう！</p>
 												<p className="mt-2">これを公開してもいいかな？</p>
 											</div>
-											
+
 											<div className="mx-auto w-[300px] sm:w-[450px]">
 												<Manga
 													title={title}
