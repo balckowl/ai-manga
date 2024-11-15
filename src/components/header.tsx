@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 const menuItem = [
 	{ href: "/mypage", name: "ホーム" },
 	{ href: "/new", name: "つくる" },
-	{ href: "/likes", name: "お気に入り" },
+	// { href: "/likes", name: "お気に入り" },
 	{ href: "/gallery", name: "自分の作品" },
 	{ href: "/community", name: "みんなの作品" },
 ];

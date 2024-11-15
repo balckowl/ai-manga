@@ -15,7 +15,7 @@ export default async function Page() {
 		<Fragment>
 			<Hero />
 			<div className="mx-auto w-[90%]">
-				<MangaIchiran title="いいね数上位" comicsWithAuthor={newComicsWithAuthor} />
+				{/* <MangaIchiran title="いいね数上位" comicsWithAuthor={newComicsWithAuthor} /> */}
 				<MangaIchiran title="新着作品" comicsWithAuthor={newComicsWithAuthor} />
 			</div>
 			<Recommend />
